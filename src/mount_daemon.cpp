@@ -107,7 +107,9 @@ void Mount_Daemon::main_task(void){
         printf("   DRIVER: %s\n"     , udev_device_get_property_value(dev, "DRIVER"));
         printf("   ID_FS_LABEL: %s\n\n\n", id_fs_label.c_str());
 #endif
-        if (devtype.compare("partition")==0 && action.compare("add") == 0 && subsystem.compare("block") == 0 && id_pat_entry_type.compare("c12a7328-f81f-11d2-ba4b-00a0c93ec93b") != 0 && id_pat_entry_type.compare("e3c9e316-0b5c-4db8-817d-f92df00215ae") != 0){
+        if (id_fs_label.length() == 0) id_fs_label = sysname;
+
+        if (devtype.compare("partition")==0 && action.compare("add") == 0 && subsystem.compare("block") == 0 && id_pat_entry_type.compare("c12a7328-f81f-11d2-ba4b-00a0c93ec93b") != 0 && id_pat_entry_type.compare("e3c9e316-0b5c-4db8-817d-f92df00215ae") != 0 && id_pat_entry_type.compare("de94bba4-06d1-4d40-a16a-bfd50179d6ac")){
           std::string mount_flags = id_fs_type.compare("ext4") == 0 ? "" : "iocharset=utf8";
           std::string dir_name =  mount_root + id_fs_label;         
 #ifdef __DEBUG__
@@ -116,7 +118,7 @@ void Mount_Daemon::main_task(void){
           fs::create_directory(dir_name);
           mount(devnode.c_str(), dir_name.c_str(), id_fs_type.c_str(), 0, mount_flags.c_str());
       }
-      if (devtype.compare("partition")==0 && action.compare("remove") == 0 && subsystem.compare("block") == 0 && id_pat_entry_type.compare("c12a7328-f81f-11d2-ba4b-00a0c93ec93b") != 0 && id_pat_entry_type.compare("e3c9e316-0b5c-4db8-817d-f92df00215ae") != 0){
+      if (devtype.compare("partition")==0 && action.compare("remove") == 0 && subsystem.compare("block") == 0 && id_pat_entry_type.compare("c12a7328-f81f-11d2-ba4b-00a0c93ec93b") != 0 && id_pat_entry_type.compare("e3c9e316-0b5c-4db8-817d-f92df00215ae") != 0 && id_pat_entry_type.compare("de94bba4-06d1-4d40-a16a-bfd50179d6ac")){
           std::string dir_name =  mount_root + id_fs_label;    
 #ifdef __DEBUG__
           printf("dir_name : %s\n", dir_name.c_str());

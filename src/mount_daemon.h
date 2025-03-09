@@ -1,3 +1,6 @@
+#ifndef MOUNT_DAEMON_H
+#define MOUNT_DAEMON_H
+
 #include <libudev.h>
 #include <stdio.h>
 #include <pthread.h>
@@ -47,3 +50,5 @@ class Mount_Daemon{
 
     int fd;
 };
+
+#endif //NTSC_FOUNDER_H
